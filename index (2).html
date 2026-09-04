@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palavras Trancadas — Edição Especial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17111f;
+    --ink-soft:#2a2036;
+    --paper:#f8f4ef;
+    --olive:#6f6b46;
+    --purple:#6a3f92;
+    --pink:#e35b8f;
+    --blue:#6f93da;
+    --line:rgba(23,17,31,0.15);
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Newsreader', serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .display{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.02em;
+    line-height:0.92;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .skip-link{ position:absolute; left:-999px; }
+  .skip-link:focus{
+    left:16px; top:16px; background:var(--ink); color:var(--paper);
+    padding:10px 16px; border-radius:6px; z-index:999; position:fixed;
+  }
+  :focus-visible{ outline:2px solid var(--pink); outline-offset:3px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    position:sticky; top:0; z-index:60;
+    background:var(--ink);
+    color:var(--paper);
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .masthead .wrap{
+    height:60px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .masthead .name{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.3rem;
+    letter-spacing:0.06em;
+  }
+  .masthead nav ul{
+    list-style:none; display:flex; gap:26px; margin:0; padding:0;
+  }
+  .masthead nav a{
+    text-decoration:none;
+    font-family:'Newsreader', serif;
+    font-size:0.92rem;
+    color:#e9dff0;
+    border-bottom:1px solid transparent;
+  }
+  .masthead nav a:hover{ border-color:var(--pink); }
+  .navtoggle{ display:none; }
+
+  /* ---------- Cover ---------- */
+  .cover{
+    background:
+      radial-gradient(70% 60% at 20% 0%, rgba(106,63,146,0.55), transparent 60%),
+      radial-gradient(60% 50% at 90% 10%, rgba(111,107,70,0.5), transparent 60%),
+      var(--ink);
+    color:var(--paper);
+    padding:56px 0 0;
+    overflow:hidden;
+  }
+  .cover-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .cover-tag{
+    display:inline-block;
+    background:var(--pink);
+    color:var(--ink);
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    padding:5px 10px;
+    border-radius:2px;
+  }
+  .cover-issue{
+    font-family:'Newsreader', serif;
+    font-size:0.85rem;
+    color:#cdb9db;
+    text-align:right;
+  }
+
+  .cover-mast{
+    text-align:center;
+    padding:10px 0 6px;
+  }
+  .cover-mast .display{
+    font-size:clamp(3.6rem, 13vw, 9.5rem);
+  }
+  .cover-mast .sub{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:#d8c8e4;
+    max-width:44ch;
+    margin:6px auto 0;
+  }
+
+  .cover-body{
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:0;
+    align-items:end;
+    margin-top:36px;
+  }
+
+  .coverlines{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    padding:12px 0 60px;
+  }
+  .coverline{
+    border-left:2px solid var(--pink);
+    padding-left:14px;
+  }
+  .coverline .k{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.06em;
+    color:var(--pink);
+    display:block;
+    margin-bottom:4px;
+  }
+  .coverline p{
+    margin:0;
+    font-size:1.05rem;
+    color:#f1e9f5;
+  }
+
+  .cover-shot{
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  .cover-shot img{
+    max-height:560px;
+    width:auto;
+    filter:drop-shadow(0 30px 50px rgba(0,0,0,0.55));
+  }
+
+  /* ---------- Section shell ---------- */
+  section.feature{
+    padding:88px 0;
+    border-top:1px solid var(--line);
+  }
+  .kicker{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.08em;
+    color:var(--purple);
+    display:block;
+    margin-bottom:8px;
+  }
+  h2.headline{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(2.3rem, 5vw, 3.6rem);
+    color:var(--ink);
+    margin:0 0 40px;
+    max-width:16ch;
+  }
+
+  /* ---------- Perfil ---------- */
+  .profile-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.3fr 0.85fr;
+    gap:44px;
+    align-items:start;
+  }
+  .profile-shot{
+    overflow:hidden;
+    border-radius:2px;
+    box-shadow:0 18px 34px -14px rgba(23,17,31,0.35);
+    aspect-ratio:3/4;
+  }
+  .profile-shot img{
+    width:100%; height:100%; object-fit:cover;
+    object-position:75% 20%;
+  }
+  .profile-text p{
+    font-size:1.12rem;
+    margin:0 0 18px;
+    color:#2b2135;
+  }
+  .profile-text p:first-of-type::first-letter{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:3.4em;
+    float:left;
+    line-height:0.8;
+    padding:4px 10px 0 0;
+    color:var(--purple);
+  }
+  .factbox{
+    background:var(--ink);
+    color:var(--paper);
+    padding:26px 24px;
+    border-radius:4px;
+  }
+  .factbox h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.1rem;
+    letter-spacing:0.04em;
+    margin:0 0 16px;
+    color:var(--pink);
+  }
+  .factbox dl{
+    margin:0;
+  }
+  .factbox dt{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    color:#c9b8d6;
+    margin-top:14px;
+  }
+  .factbox dt:first-child{ margin-top:0; }
+  .factbox dd{
+    margin:4px 0 0;
+    font-size:0.98rem;
+    color:#f1e9f5;
+  }
+
+  /* ---------- Sinopse ---------- */
+  .sinopse{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:center;
+  }
+  blockquote.pull{
+    margin:0;
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.7rem, 3vw, 2.4rem);
+    line-height:1.28;
+    color:var(--purple);
+    border-left:3px solid var(--pink);
+    padding-left:26px;
+  }
+  blockquote.pull cite{
+    display:block;
+    font-style:normal;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    color:var(--ink);
+    margin-top:16px;
+  }
+  .sinopse-text p{
+    font-size:1.08rem;
+    color:#2b2135;
+    margin:0 0 16px;
+  }
+
+  /* ---------- Bastidores ---------- */
+  .bastidores{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .cover-detail{
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 20px 40px -16px rgba(23,17,31,0.3);
+  }
+  .bastidores-text p{
+    font-size:1.05rem;
+    color:#2b2135;
+    margin:0 0 16px;
+  }
+  .palette-row{
+    display:flex;
+    gap:14px;
+    margin-top:22px;
+  }
+  .palette-chip{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+  }
+  .palette-chip .swatch{
+    width:34px; height:34px;
+    border-radius:50%;
+    box-shadow:0 0 0 1px var(--line);
+  }
+
+  /* ---------- Trilogia ---------- */
+  .trilogy-shot{
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 20px 40px -16px rgba(23,17,31,0.3);
+    margin-bottom:36px;
+  }
+  .timeline{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+  }
+  .tl-item{
+    border-top:2px solid var(--purple);
+    padding-top:14px;
+  }
+  .tl-item .status{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.04em;
+    color:var(--pink);
+    display:block;
+    margin-bottom:6px;
+  }
+  .tl-item h4{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.3rem;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .tl-item p{
+    font-size:0.95rem;
+    color:#4a3f5c;
+    margin:0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--ink);
+    color:#d8c8e4;
+    padding:50px 0 36px;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+  }
+  footer .fmark{ display:flex; align-items:center; gap:12px; }
+  footer .fmark img{ width:52px; border-radius:4px; }
+  footer h4{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.1rem;
+    color:#fff;
+    margin:0 0 2px;
+    letter-spacing:0.03em;
+  }
+  footer p{ margin:0; font-size:0.85rem; }
+  footer .credit{ font-size:0.82rem; text-align:right; color:#b79bc9; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    .cover-body{ grid-template-columns:1fr; }
+    .coverlines{ padding-bottom:24px; flex-direction:row; flex-wrap:wrap; }
+    .coverline{ flex:1 1 220px; }
+    .profile-grid{ grid-template-columns:1fr; }
+    .profile-shot{ max-width:320px; }
+    .sinopse{ grid-template-columns:1fr; gap:28px; }
+    .bastidores{ grid-template-columns:1fr; }
+    .timeline{ grid-template-columns:1fr; gap:22px; }
+  }
+  @media (max-width:640px){
+    .wrap{ padding:0 20px; }
+    .masthead nav ul{
+      position:fixed; top:60px; left:0; right:0;
+      background:var(--ink);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      transition:max-height .25s ease;
+      border-bottom:1px solid rgba(255,255,255,0.12);
+    }
+    .masthead nav a{ display:block; padding:14px 20px; border-top:1px solid rgba(255,255,255,0.1); }
+    .navtoggle{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px; height:34px; background:none; color:#fff;
+      border:1px solid rgba(255,255,255,0.3); border-radius:6px; cursor:pointer;
+    }
+    .navtoggle[aria-expanded="true"] + nav ul{ max-height:220px; }
+    footer .wrap{ flex-direction:column; align-items:flex-start; }
+    footer .credit{ text-align:left; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#perfil" class="skip-link">Ir para o conteúdo</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <span class="name">Palavras Trancadas — Edição Especial</span>
+    <button class="navtoggle" aria-expanded="false" onclick="const e=this.getAttribute('aria-expanded')==='true'; this.setAttribute('aria-expanded', !e); this.textContent = e ? '☰' : '✕';">☰</button>
+    <nav>
+      <ul>
+        <li><a href="#perfil">Perfil</a></li>
+        <li><a href="#sinopse">Sinopse</a></li>
+        <li><a href="#bastidores">Bastidores</a></li>
+        <li><a href="#trilogia">A trilogia</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="cover">
+  <div class="wrap">
+    <div class="cover-top">
+      <span class="cover-tag">Edição especial</span>
+      <span class="cover-issue">Nº 01 — Ficção<br>Thalita L. Prudêncio</span>
+    </div>
+
+    <div class="cover-mast">
+      <h1 class="display">Palavras<br>Trancadas</h1>
+      <p class="sub">Ela sabe fazer todas as perguntas — menos as que precisa fazer a si mesma.</p>
+    </div>
+
+    <div class="cover-body">
+      <div class="coverlines">
+        <div class="coverline">
+          <span class="k">Perfil</span>
+          <p>A jornalista treinada para arrancar respostas dos outros e que nunca aprendeu a dar as suas.</p>
+        </div>
+        <div class="coverline">
+          <span class="k">Bastidores</span>
+          <p>Por trás da capa: a coleira, as lágrimas e o vestido roxo que viraram símbolo do livro.</p>
+        </div>
+        <div class="coverline">
+          <span class="k">A trilogia</span>
+          <p>De Palavras Trancadas a Palavras Abafadas — o mapa completo dos três volumes.</p>
+        </div>
+      </div>
+      <div class="cover-shot">
+        <img src="images/Palavras-Trancadas-Mockup.jpeg" alt="Capa do livro Palavras Trancadas, mostrando uma jovem chorando de vestido roxo, com uma coleira presa ao pescoço.">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERFIL ================= -->
+<section class="feature" id="perfil">
+  <div class="wrap">
+    <span class="kicker">A repórter por trás da manchete</span>
+    <h2 class="headline">Perfil: a jornalista que não sabia se calar</h2>
+
+    <div class="profile-grid">
+      <div class="profile-shot">
+        <img src="images/Palavras-Trancadas-Mockup.jpeg" alt="Detalhe da capa, com foco na expressão da protagonista de Palavras Trancadas.">
+      </div>
+
+      <div class="profile-text">
+        <p>É jornalista. Vive de perguntas: sentar do outro lado da mesa, gravador ligado, esperar a verdade escapar nas entrelinhas de quem está sendo entrevistado. É boa nisso — talvez boa demais, porque aprendeu cedo que perguntar é mais seguro do que responder.</p>
+        <p>O problema é quando as perguntas se voltam para dentro. <em>Palavras Trancadas</em> começa exatamente aí: no momento em que a protagonista percebe que sabe investigar qualquer história, menos a própria.</p>
+      </div>
+
+      <aside class="factbox">
+        <h3>Ficha da personagem</h3>
+        <dl>
+          <dt>Profissão</dt>
+          <dd>Jornalista</dd>
+          <dt>Ferramenta de trabalho</dt>
+          <dd>Perguntas — de preferência, as dos outros</dd>
+          <dt>Símbolo na capa</dt>
+          <dd>Uma coleira presa ao pescoço</dd>
+          <dt>O que o livro não entrega de graça</dt>
+          <dd>O motivo do seu silêncio</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SINOPSE ================= -->
+<section class="feature" id="sinopse" style="background:#f1e9e2;">
+  <div class="wrap">
+    <span class="kicker">De que trata o livro</span>
+    <h2 class="headline">Sinopse</h2>
+
+    <div class="sinopse">
+      <blockquote class="pull">
+        “Algumas histórias a gente não escreve. A gente sobrevive a elas.”
+        <cite>Palavras Trancadas</cite>
+      </blockquote>
+
+      <div class="sinopse-text">
+        <p>Primeiro volume da trilogia <em>Palavras</em>, o livro acompanha uma jornalista habituada a decifrar os silêncios alheios diante de uma pergunta que ela própria nunca conseguiu responder em voz alta.</p>
+        <p>Entre reportagens, prazos e a rotina de quem transforma a dor dos outros em notícia, ela é obrigada a encarar a sua própria — e descobrir que romper o silêncio pode custar mais do que manter as palavras trancadas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BASTIDORES ================= -->
+<section class="feature" id="bastidores">
+  <div class="wrap">
+    <span class="kicker">Como a capa foi feita</span>
+    <h2 class="headline">Bastidores da capa</h2>
+
+    <div class="bastidores">
+      <div class="cover-detail">
+        <img src="images/Palavras-Trancadas-Mockup.jpeg" alt="Mockup do livro físico Palavras Trancadas sobre fundo branco.">
+      </div>
+      <div class="bastidores-text">
+        <p>A ilustração de capa, assinada por Nyx Lumus, usa a coleira presa ao pescoço como símbolo central: uma imagem literal para o título, o momento em que a voz fica presa antes mesmo de sair.</p>
+        <p>O verde-oliva do fundo contrasta com o roxo do vestido — a mesma paleta fria e contida que atravessa a trilogia inteira, ganhando um tom diferente a cada capa.</p>
+        <div class="palette-row">
+          <div class="palette-chip"><span class="swatch" style="background:#6f6b46;"></span>Fundo</div>
+          <div class="palette-chip"><span class="swatch" style="background:#6a3f92;"></span>Vestido</div>
+          <div class="palette-chip"><span class="swatch" style="background:#17111f;"></span>Sombra</div>
+          <div class="palette-chip"><span class="swatch" style="background:#e8d24a;"></span>Detalhes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRILOGIA ================= -->
+<section class="feature" id="trilogia" style="background:#f1e9e2;">
+  <div class="wrap">
+    <span class="kicker">O mapa completo</span>
+    <h2 class="headline">A trilogia Palavras</h2>
+
+    <div class="trilogy-shot">
+      <img src="images/WhatsApp_Image_2026-09-04_at_20_50_50.jpeg" alt="As três capas da trilogia Palavras: Palavras Trancadas, Palavras Interrompidas e Palavras Abafadas.">
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="status">Publicado — 2022</span>
+        <h4>Palavras Trancadas</h4>
+        <p>A jornalista que não conseguia falar sobre si mesma. Onde tudo começa.</p>
+      </div>
+      <div class="tl-item">
+        <span class="status">Sendo escrito — 2026</span>
+        <h4>Palavras Interrompidas</h4>
+        <p>Segundo volume da trilogia, atualmente em processo de escrita.</p>
+      </div>
+      <div class="tl-item">
+        <span class="status">Em planejamento — 2028</span>
+        <h4>Palavras Abafadas</h4>
+        <p>Terceiro volume, ainda em fase de planejamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fmark">
+      <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__8_.jpeg" alt="Logotipo Nyx Lumus">
+      <div>
+        <h4>Palavras Trancadas</h4>
+        <p>Escrito por Thalita L. Prudêncio · Capa por Nyx Lumus</p>
+      </div>
+    </div>
+    <p class="credit">Edição especial deste site dedicada ao primeiro volume da trilogia Palavras</p>
+  </div>
+</footer>
+
+</body>
+</html>
