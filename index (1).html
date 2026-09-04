@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nyx Lumus — Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#241b34;
+    --paper:#faf7fb;
+    --purple:#6c3fa8;
+    --purple-deep:#3a1f60;
+    --pink:#e35b96;
+    --pink-soft:#f7d3e4;
+    --blue:#5a86d6;
+    --blue-soft:#d3e0f7;
+    --line: rgba(36,27,52,0.14);
+    --max: 1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.02;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;}
+
+  img{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Skip link for accessibility ---------- */
+  .skip-link{
+    position:absolute; left:-999px; top:auto;
+  }
+  .skip-link:focus{
+    left:16px; top:16px; background:var(--ink); color:var(--paper);
+    padding:10px 16px; border-radius:6px; z-index:999;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--purple-deep);
+    outline-offset:3px;
+  }
+
+  /* ---------- Top nav ---------- */
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,247,251,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:66px;
+  }
+  .brandmark{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem;
+    text-decoration:none; color:var(--ink);
+  }
+  .brandmark .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:linear-gradient(135deg, var(--pink), var(--purple) 55%, var(--blue));
+    flex:none;
+  }
+  .navlinks{
+    display:flex; gap:28px; list-style:none; margin:0; padding:0;
+  }
+  .navlinks a{
+    text-decoration:none;
+    font-size:0.92rem;
+    color:var(--purple-deep);
+    position:relative;
+    padding-bottom:3px;
+  }
+  .navlinks a::after{
+    content:"";
+    position:absolute; left:0; right:100%; bottom:0;
+    height:1.5px; background:var(--pink);
+    transition:right .25s ease;
+  }
+  .navlinks a:hover::after{ right:0; }
+
+  .navtoggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:120px 0 90px;
+    overflow:hidden;
+    background:
+      radial-gradient(60% 70% at 12% 15%, rgba(211,224,247,0.9), transparent 60%),
+      radial-gradient(55% 65% at 88% 20%, rgba(247,211,228,0.85), transparent 60%),
+      radial-gradient(70% 80% at 50% 100%, rgba(108,63,168,0.18), transparent 65%),
+      var(--paper);
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+  .hero .kicker{
+    font-size:0.95rem;
+    color:var(--purple-deep);
+    margin-bottom:18px;
+    display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 8vw, 6.4rem);
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    background:linear-gradient(100deg, var(--pink), var(--purple) 55%, var(--blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.15rem;
+    max-width:46ch;
+    color:var(--ink);
+  }
+  .hero-side{
+    border-left:1px solid var(--line);
+    padding-left:28px;
+  }
+  .hero-side p{
+    font-size:0.95rem;
+    color:#4a3f5c;
+    margin:0 0 14px;
+  }
+  .hero-side .meta-list{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .hero-side .meta-list li{
+    font-size:0.92rem;
+    display:flex; justify-content:space-between;
+    border-bottom:1px dashed var(--line);
+    padding-bottom:8px;
+  }
+  .hero-side .meta-list span:last-child{ color:var(--purple); }
+
+  /* ---------- Section shell ---------- */
+  section.spread{
+    padding:96px 0;
+    border-top:1px solid var(--line);
+  }
+  .spread.tint-pink{ background:linear-gradient(180deg, var(--pink-soft) 0%, var(--paper) 100%); }
+  .spread.tint-blue{ background:linear-gradient(180deg, var(--blue-soft) 0%, var(--paper) 100%); }
+
+  .section-head{
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:48px;
+    margin-bottom:56px;
+    align-items:start;
+  }
+  .section-head .tag{
+    font-size:0.85rem;
+    color:var(--pink);
+    display:block;
+    margin-bottom:10px;
+  }
+  .section-head h2{
+    font-size:clamp(2.2rem, 4.6vw, 3.2rem);
+    color:var(--purple-deep);
+  }
+  .section-head .lede{
+    font-size:1.05rem;
+    color:#463b58;
+    padding-top:6px;
+  }
+  .section-head .lede::first-letter{
+    font-family:'Fraunces', serif;
+    font-size:2.6em;
+    float:left;
+    line-height:0.78;
+    padding-right:8px;
+    color:var(--purple);
+    font-weight:600;
+  }
+
+  /* ---------- Illustration masonry ---------- */
+  .masonry{
+    column-count:3;
+    column-gap:26px;
+  }
+  .piece{
+    break-inside:avoid;
+    margin-bottom:26px;
+    background:#fff;
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(58,31,96,0.06);
+  }
+  .piece img{ width:100%; }
+  .piece figcaption{
+    padding:14px 16px 18px;
+  }
+  .piece figcaption .title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.02rem;
+    display:block;
+  }
+  .piece figcaption .medium{
+    font-size:0.82rem;
+    color:var(--purple);
+    display:block;
+    margin-top:2px;
+  }
+
+  /* ---------- Editorial ---------- */
+  .trilogy-banner{
+    margin-bottom:60px;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 6px 24px rgba(58,31,96,0.12);
+  }
+  .trilogy-banner img{ width:100%; }
+
+  .book-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px;
+  }
+  .book-card{
+    display:flex;
+    flex-direction:column;
+  }
+  .book-cover{
+    position:relative;
+    border-radius:3px;
+    overflow:hidden;
+    box-shadow:
+      0 22px 40px -18px rgba(58,31,96,0.35),
+      -6px 0 0 rgba(0,0,0,0.06) inset;
+    margin-bottom:18px;
+  }
+  .book-cover img{ width:100%; }
+  .book-card h3{
+    font-size:1.15rem;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .book-card .status{
+    font-size:0.85rem;
+    color:var(--purple);
+    margin-bottom:8px;
+    display:inline-block;
+  }
+  .book-card p{
+    font-size:0.92rem;
+    color:#4a3f5c;
+    margin:0;
+  }
+
+  /* ---------- Identity ---------- */
+  .identity-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  .identity-card{
+    background:#fff;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(58,31,96,0.08);
+    display:flex;
+    flex-direction:column;
+  }
+  .identity-card .shot{
+    aspect-ratio:4/3;
+    overflow:hidden;
+    background:#eee;
+  }
+  .identity-card .shot img{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .identity-card .body{
+    padding:26px 28px 30px;
+  }
+  .identity-card h3{
+    font-size:1.35rem;
+    margin-bottom:8px;
+    color:var(--purple-deep);
+  }
+  .identity-card p{
+    font-size:0.95rem;
+    color:#4a3f5c;
+    margin:0 0 16px;
+  }
+  .swatches{
+    display:flex; gap:10px;
+  }
+  .swatch{
+    width:30px; height:30px; border-radius:50%;
+    border:2px solid #fff;
+    box-shadow:0 0 0 1px var(--line);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 0 40px;
+    background:var(--purple-deep);
+    color:var(--pink-soft);
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  footer .fmark{
+    display:flex; align-items:center; gap:12px;
+  }
+  footer .fmark img{
+    width:64px; height:auto; border-radius:4px;
+    filter:brightness(1.05);
+  }
+  footer h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:#fff;
+    margin:0 0 4px;
+    font-size:1.1rem;
+  }
+  footer p{
+    margin:0;
+    font-size:0.85rem;
+    color:#d9c3e8;
+  }
+  footer .credit{
+    font-size:0.82rem;
+    color:#c6a9dc;
+    text-align:right;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-side{ border-left:none; border-top:1px solid var(--line); padding-left:0; padding-top:24px; }
+    .section-head{ grid-template-columns:1fr; gap:18px; }
+    .masonry{ column-count:2; }
+    .book-grid{ grid-template-columns:1fr 1fr; }
+    .identity-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width:640px){
+    .wrap{ padding:0 20px; }
+    .navlinks{
+      position:fixed; top:66px; left:0; right:0;
+      background:var(--paper);
+      flex-direction:column;
+      gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .navlinks a{
+      padding:16px 20px;
+      display:block;
+      border-top:1px solid var(--line);
+    }
+    .navtoggle{
+      display:inline-flex;
+      align-items:center; justify-content:center;
+      width:36px; height:36px;
+      background:none; border:1px solid var(--line); border-radius:6px;
+      font-size:1.1rem; cursor:pointer; color:var(--ink);
+    }
+    .navtoggle[aria-expanded="true"] + .navlinks{
+      max-height:220px;
+    }
+    .masonry{ column-count:1; }
+    .book-grid{ grid-template-columns:1fr; }
+    footer .wrap{ flex-direction:column; align-items:flex-start; }
+    footer .credit{ text-align:left; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#ilustracao" class="skip-link">Ir para o conteúdo</a>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="#top" class="brandmark"><span class="dot"></span> Nyx Lumus</a>
+    <button class="navtoggle" aria-expanded="false" aria-controls="navlinks" onclick="const e=this.getAttribute('aria-expanded')==='true'; this.setAttribute('aria-expanded', !e); this.textContent = e ? '☰' : '✕';">☰</button>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#ilustracao">Ilustração digital</a></li>
+      <li><a href="#editorial">Editorial</a></li>
+      <li><a href="#identidade">Identidade visual</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Portfólio de arte &amp; design</span>
+      <h1>Histórias contadas em <em>traço e cor</em>.</h1>
+      <p class="lede">Um estúdio de ilustração digital dedicado a personagens, capas de livro e identidades visuais — sempre com uma paleta de rosa, azul e roxo como fio condutor.</p>
+    </div>
+    <div class="hero-side">
+      <p>Três frentes de trabalho reunidas nesta edição:</p>
+      <ul class="meta-list">
+        <li><span>Ilustração digital</span><span>Personagens &amp; peças soltas</span></li>
+        <li><span>Editorial</span><span>Capas de livro</span></li>
+        <li><span>Identidade visual</span><span>Marcas &amp; papelaria</span></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ILUSTRAÇÃO DIGITAL ================= -->
+<section class="spread" id="ilustracao">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="tag">Seção 1</span>
+        <h2>Ilustração digital</h2>
+      </div>
+      <p class="lede">Retratos, criaturas e pequenos estudos de expressão — o espaço onde as ideias soltas viram imagem, sem compromisso com um enredo maior.</p>
+    </div>
+
+    <div class="masonry">
+
+      <figure class="piece">
+        <img src="images/Future.jpeg" alt="Ilustração de uma figura com metade da cabeça em traços orgânicos e metade em circuitos, cercada por folhagens rosa e azul.">
+        <figcaption>
+          <span class="title">Future</span>
+          <span class="medium">Ilustração digital</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__1_.jpeg" alt="Ilustração de um gato branco sentado de olhos fechados sobre fundo rosa, com a palavra Tranquility acima.">
+        <figcaption>
+          <span class="title">Tranquility</span>
+          <span class="medium">Ilustração digital</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__8_.jpeg" alt="Ilustração de uma raposa vermelha com expressão brava, cercada por pegadas, com o título Angry Fox.">
+        <figcaption>
+          <span class="title">Angry Fox</span>
+          <span class="medium">Ilustração digital</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__2_.jpeg" alt="Página de bloco de notas decorada com gatinhos brancos e pretos sobre fundo rosa.">
+        <figcaption>
+          <span class="title">Papelaria — gatinhos</span>
+          <span class="medium">Design de padrão</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_09__1_.jpeg" alt="Retrato ilustrado de um homem de blusa verde sentado em um café, apoiado à janela com uma xícara de café à frente.">
+        <figcaption>
+          <span class="title">Retrato — janela do café</span>
+          <span class="medium">Retrato digital</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__5_.jpeg" alt="Padrão repetido de olhos verdes conectados por fios sobre fundo roxo texturizado.">
+        <figcaption>
+          <span class="title">Vigília</span>
+          <span class="medium">Ilustração digital</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_09.jpeg" alt="Personagem de fantasia com orelhas pontudas, cabelo laranja espetado e uma adaga na mão, sobre fundo vermelho.">
+        <figcaption>
+          <span class="title">Guardião</span>
+          <span class="medium">Personagem original</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece">
+        <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__9_.jpeg" alt="Ilustração de uma mulher de braços cruzados com expressão assustada, ao lado do texto I'm so scare about everything.">
+        <figcaption>
+          <span class="title">Everything</span>
+          <span class="medium">Ilustração digital</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDITORIAL ================= -->
+<section class="spread tint-pink" id="editorial">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="tag">Seção 2</span>
+        <h2>Editorial</h2>
+      </div>
+      <p class="lede">Capas e ilustrações para livros de Thalita L. Prudêncio — do lançamento já publicado até os volumes ainda em processo de escrita.</p>
+    </div>
+
+    <div class="trilogy-banner">
+      <img src="images/WhatsApp_Image_2026-09-04_at_20_50_50.jpeg" alt="As três capas da trilogia Palavras, lado a lado: Palavras Trancadas (publicado em 2022), Palavras Interrompidas (sendo escrito, 2026) e Palavras Abafadas (em planejamento, 2028).">
+    </div>
+
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="images/Palavras-Trancadas-Mockup.jpeg" alt="Mockup de livro físico com a capa de Palavras Trancadas, mostrando uma jovem chorando em vestido roxo.">
+        </div>
+        <span class="status">Publicado — 2022</span>
+        <h3>Palavras Trancadas</h3>
+        <p>Primeiro volume da trilogia, com capa ilustrada e assinada por Nyx Lumus.</p>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__3_.jpeg" alt="Capa do livro Ageha, a Heroína em Apuros, ilustrando uma jovem de cabelo roxo abraçando os joelhos sobre fundo verde.">
+        </div>
+        <span class="status">Projeto próprio</span>
+        <h3>Ageha, a Heroína em Apuros</h3>
+        <p>Capa ilustrada com paleta contrastante e composição centrada na personagem.</p>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__6_.jpeg" alt="Capa do livro infantil Pedro têm medo do escuro, mostrando um menino escondido sob o cobertor enquanto sombras o observam.">
+        </div>
+        <span class="status">Livro infantil</span>
+        <h3>Pedro têm medo do escuro</h3>
+        <p>Ilustração de capa para história infantil, com clima noturno e sombras expressivas.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= IDENTIDADE VISUAL ================= -->
+<section class="spread tint-blue" id="identidade">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="tag">Seção 3</span>
+        <h2>Identidade visual</h2>
+      </div>
+      <p class="lede">Construção de marca: logotipo, paleta de cores e aplicações — pensada para funcionar tanto em uma embalagem de rua quanto em uma assinatura de estúdio.</p>
+    </div>
+
+    <div class="identity-grid">
+
+      <div class="identity-card">
+        <div class="shot">
+          <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__7_.jpeg" alt="Manual de marca CrepDog, mostrando logotipo, aplicações em cores, paleta de tons laranja e fonte Boulder.">
+        </div>
+        <div class="body">
+          <h3>CrepDog</h3>
+          <p>Identidade para uma marca de cachorro-quente em formato de crepe: logotipo, variações de cor e paleta quente inspirada no produto.</p>
+          <div class="swatches">
+            <span class="swatch" style="background:#fffdf2;"></span>
+            <span class="swatch" style="background:#fab340;"></span>
+            <span class="swatch" style="background:#eb8513;"></span>
+            <span class="swatch" style="background:#b9560b;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="identity-card">
+        <div class="shot">
+          <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__8_.jpeg" alt="Logotipo desenhado à mão do estúdio Nyx Lumus, sobre fundo em degradê rosa e azul.">
+        </div>
+        <div class="body">
+          <h3>Nyx Lumus</h3>
+          <p>Assinatura do próprio estúdio: um logotipo desenhado à mão, aplicado sobre um degradê que resume a paleta usada em todo o portfólio.</p>
+          <div class="swatches">
+            <span class="swatch" style="background:#e35b96;"></span>
+            <span class="swatch" style="background:#6c3fa8;"></span>
+            <span class="swatch" style="background:#5a86d6;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fmark">
+      <img src="images/WhatsApp_Image_2026-09-04_at_19_15_08__8_.jpeg" alt="Logotipo Nyx Lumus">
+      <div>
+        <h4>Nyx Lumus</h4>
+        <p>Ilustração digital, editorial &amp; identidade visual</p>
+      </div>
+    </div>
+    <p class="credit">Capas de livro assinadas por Thalita L. Prudêncio &amp; Nyx Lumus</p>
+  </div>
+</footer>
+
+</body>
+</html>
